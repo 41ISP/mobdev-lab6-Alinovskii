@@ -3,16 +3,24 @@ import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import 'react-native-reanimated';
+import { StyleSheet } from 'react-native';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { Alert, NativeSyntheticEvent, TextInputChangeEventData, View } from 'react-native';
+import Input from '@/components/Input';
+import { TextInput } from 'react-native-gesture-handler';
+import Button from '@/components/Button';
+import QRCode from '@/components/QRCode';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
+  const [input, setInput] = useState("");
+  const [link, setLink] = useState("");
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
@@ -26,14 +34,25 @@ export default function RootLayout() {
   if (!loaded) {
     return null;
   }
+  const onPress = () =>{
+    const newLink = decodeURI("https://quickchart.io/qr?text=" + encodeURIComponent(input)) 
+    setLink(newLink);
+  }
+  const handleChange = (e: string)  => {
+    setInput(e)
+}
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+<View style={styles.View}>
+  <Input placeholder='Введите текст'  value={input} onChangeText={handleChange} />
+ <Button onPress={onPress}></Button>
+ <QRCode image={link} ></QRCode>
+</View>
   );
 }
+const styles = StyleSheet.create({
+  View: {
+   justifyContent: "center",
+   alignItems: "center",
+  },
+});
