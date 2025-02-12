@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
     Qr: {
      height: 350,
      width: 350,
+    marginTop: 15,
     },
   });
 

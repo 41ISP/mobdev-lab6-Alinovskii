@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
      borderWidth: 1,
      borderColor: "#000000",
      justifyContent: "center",
+     marginTop: 20,
     },
   });
 export default Input;
