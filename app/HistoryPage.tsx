@@ -1,8 +1,8 @@
- import { View } from "react-native";
+ import { View, Text } from "react-native";
 
  const HistoryPage = () => {   
      return (
-         <View>123</View>
+         <View><Text>123</Text></View>
     )
 }
  export default HistoryPage;
