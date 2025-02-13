@@ -1,15 +1,9 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack, useRouter } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { StatusBar } from 'expo-status-bar';
-import { useEffect, useState } from 'react';
+import { useRouter } from 'expo-router';
+import {  useState } from 'react';
 import 'react-native-reanimated';
 import { StyleSheet, TouchableOpacity } from 'react-native';
-import { useColorScheme } from '@/hooks/useColorScheme';
-import { Alert, NativeSyntheticEvent, TextInputChangeEventData, View } from 'react-native';
+import { View } from 'react-native';
 import Input from '@/components/Input';
-import { TextInput } from 'react-native-gesture-handler';
 import Button from '@/components/Button';
 import QRCode from '@/components/QRCode';
 

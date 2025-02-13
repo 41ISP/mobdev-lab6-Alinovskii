@@ -1,4 +1,4 @@
-import { NativeSyntheticEvent, TextInput, TextInputChangeEventData, View } from "react-native"
+import { TextInput, View } from "react-native"
 import { StyleSheet } from 'react-native';
 interface IInput {
     value: string
