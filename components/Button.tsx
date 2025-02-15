@@ -1,24 +1,33 @@
 import { TouchableOpacity } from "react-native";
 import { StyleSheet } from 'react-native';
+import { Text } from "react-native";
 interface BButton {
   onPress: () => void
-  children?: React.ReactNode;
+  title: string,
 }
-const Button = ({onPress}: BButton) => {
+const Button = ({onPress, title}: BButton) => {
 
     return(
-      <TouchableOpacity style={styles.Button} onPress={onPress}>123</TouchableOpacity>            
+      <TouchableOpacity style={styles.Button} onPress={onPress}>
+        <Text style={styles.text}>{title}</Text>
+      </TouchableOpacity>            
     )
     
 }
 const styles = StyleSheet.create({
     Button: {
-     height: 50,
+     height: 20,
      width: 250,
      borderWidth: 1,
      borderColor: "#000000",
     marginTop: 10,
     },
+    text: {
+      justifyContent: "center",
+      alignItems: "center",
+      alignContent: "center",
+      textAlign: "center",
+    }
   });
 
 export default Button;

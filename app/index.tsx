@@ -1,7 +1,7 @@
 import { useRouter } from 'expo-router';
 import {  useState } from 'react';
 import 'react-native-reanimated';
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { Alert, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { View } from 'react-native';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
@@ -20,24 +20,32 @@ const PageHistory = () => {
     router.push('/HistoryPage');
 }
 const onPress = () => {
-    const newLink = decodeURI("https://quickchart.io/qr?text=" + encodeURIComponent(input))
-    setLink(newLink);
-    appendHistory({input: input, link: newLink, timestamp: (new Date).getTime()})
+        if(input.trim()) {
+            const newLink = decodeURI("https://quickchart.io/qr?text=" + encodeURIComponent(input))
+            setLink(newLink);
+            appendHistory({input: input, link: newLink, timestamp: (new Date).getTime()})
+        }
 }
 const handleChange = (e: string) => {
-    setInput(e)
+    if (input.length <= 41) {
+        setInput(e)
+      }
+      else {
+        setInput(state => state.slice(0, 40))
+        Alert.alert("Ошибка, Запрос привысил 40 символов!!!")
+      }
 }
 
     return (
         <View style={styles.View}>
 
             <Input placeholder='Введите текст' value={input} onChangeText={handleChange} />
-            <Button onPress={onPress}><Text>123231</Text></Button>
+            <Button onPress={onPress} title={'Генерировать.'}></Button>
             <QRCode image={link} ></QRCode>
             <TouchableOpacity
                 style={styles.Link}
                 onPress={PageHistory}
-            ><Text>История</Text></TouchableOpacity>
+            ><Text>История генераций</Text></TouchableOpacity>
 
         </View>
     )
@@ -51,14 +59,16 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         boxShadow: "rgba(240, 13, 13, 0.2)",
         margin: 5,
+        height: 650,
     },
     Link: {
         justifyContent: "center",
         alignItems: "center",
-        borderWidth: 1,
+       borderRadius: 15,
         width: 330,
         height: 50,
-        backgroundColor:"rgba(34, 148, 30, 0.7)",
+        margin: 15,
+        backgroundColor:"rgba(9, 99, 6, 0.7)",
     }
 });
 

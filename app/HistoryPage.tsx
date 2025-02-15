@@ -13,7 +13,7 @@ const HistoryPage = () => {
     <ScrollView  style={styles.View} className="history-page">
       <View className="mainform">
         {history.map((qr) => (
-          <View className={`qr${qr.link.length > 120 ? " qr--3" : qr.link.length > 80 ? " qr--2": qr.link.length > 40 ? " qr--1" : ""}`} key={qr.link}>
+          <View key={qr.link}>
             <Text style={styles.text}>{qr.input}</Text>
             <TouchableOpacity onPress={() => Linking.openURL(qr.link)}>
             <QRCode image={qr.link}/>  
@@ -31,18 +31,17 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         borderWidth: 1,
-        backgroundColor:"#8e4",
+        backgroundColor:"#FF4500",
     },
     text: {
-        height: 20,
-        width: 250,
+        width: "100%",
         color: "#FFFF00",
-        fontSize: 15,
+        fontSize: 20,
         justifyContent: "center",
         alignItems: "center",
     },
     View:{
-        backgroundColor: "#444334",
+        backgroundColor: "#0000CD",
     },
     QRCode:{
         justifyContent: "center",
