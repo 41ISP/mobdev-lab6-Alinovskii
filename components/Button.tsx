@@ -2,12 +2,12 @@ import { TouchableOpacity } from "react-native";
 import { StyleSheet } from 'react-native';
 interface BButton {
   onPress: () => void
-  
+  children?: React.ReactNode;
 }
 const Button = ({onPress}: BButton) => {
 
     return(
-      <TouchableOpacity style={styles.Button} onPress={onPress}></TouchableOpacity>            
+      <TouchableOpacity style={styles.Button} onPress={onPress}>123</TouchableOpacity>            
     )
     
 }

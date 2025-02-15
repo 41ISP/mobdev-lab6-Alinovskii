@@ -1,11 +1,12 @@
 import { useRouter } from 'expo-router';
 import {  useState } from 'react';
 import 'react-native-reanimated';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { View } from 'react-native';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
 import QRCode from '@/components/QRCode';
+import useQRStore from '@/Store';
 
 
 
@@ -13,6 +14,7 @@ const Main = () => {
     
 const [input, setInput] = useState("");
 const [link, setLink] = useState("");
+const appendHistory = useQRStore((state) => state.appendHistory)
 const router = useRouter();
 const PageHistory = () => {
     router.push('/HistoryPage');
@@ -20,6 +22,7 @@ const PageHistory = () => {
 const onPress = () => {
     const newLink = decodeURI("https://quickchart.io/qr?text=" + encodeURIComponent(input))
     setLink(newLink);
+    appendHistory({input: input, link: newLink, timestamp: (new Date).getTime()})
 }
 const handleChange = (e: string) => {
     setInput(e)
@@ -29,12 +32,12 @@ const handleChange = (e: string) => {
         <View style={styles.View}>
 
             <Input placeholder='Введите текст' value={input} onChangeText={handleChange} />
-            <Button onPress={onPress}></Button>
+            <Button onPress={onPress}><Text>123231</Text></Button>
             <QRCode image={link} ></QRCode>
             <TouchableOpacity
                 style={styles.Link}
                 onPress={PageHistory}
-            />
+            ><Text>История</Text></TouchableOpacity>
 
         </View>
     )
@@ -50,10 +53,12 @@ const styles = StyleSheet.create({
         margin: 5,
     },
     Link: {
+        justifyContent: "center",
+        alignItems: "center",
+        borderWidth: 1,
+        width: 330,
         height: 50,
-        width: 250,
-        backgroundColor: "#000000",
-        margin: 15,
+        backgroundColor:"rgba(34, 148, 30, 0.7)",
     }
 });
 
