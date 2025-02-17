@@ -1,5 +1,5 @@
 import { useRouter } from 'expo-router';
-import {  useState } from 'react';
+import React, {  useState } from 'react';
 import 'react-native-reanimated';
 import { Alert, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { View } from 'react-native';
@@ -7,9 +7,7 @@ import Input from '@/components/Input';
 import Button from '@/components/Button';
 import QRCode from '@/components/QRCode';
 import useQRStore from '@/Store';
-
-
-
+import { Dropdown } from 'react-native-element-dropdown';
 const Main = () => {
     
 const [input, setInput] = useState("");
@@ -26,6 +24,17 @@ const onPress = () => {
             appendHistory({input: input, link: newLink, timestamp: (new Date).getTime()})
         }
 }
+const date = [
+    {
+        label: "бизнес", value: "1"
+    },
+    {
+        label: "Дела", value: "2"
+    },
+    {
+        label: "Просто так", value: "3"
+    }
+]
 const handleChange = (e: string) => {
     if (input.length <= 41) {
         setInput(e)
@@ -41,6 +50,8 @@ const handleChange = (e: string) => {
 
             <Input placeholder='Введите текст' value={input} onChangeText={handleChange} />
             <Button onPress={onPress} title={'Генерировать.'}></Button>
+            
+            <Dropdown style={styles.dropdown} data={date} onChange={(e) => {setInput(e.value)}} labelField={'label'} valueField={'value'}></Dropdown>
             <QRCode image={link} ></QRCode>
             <TouchableOpacity
                 style={styles.Link}
@@ -69,6 +80,11 @@ const styles = StyleSheet.create({
         height: 50,
         margin: 15,
         backgroundColor:"rgba(9, 99, 6, 0.7)",
+    },
+    dropdown: {
+        width: 150,
+        height: 50,
+        backgroundColor: "#000000",
     }
 });
 
